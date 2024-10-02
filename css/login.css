@@ -1,0 +1,113 @@
+/* Body and Container Styling */
+body {
+  font-family: 'Arial', sans-serif;
+  /* background: linear-gradient(135deg, #f06, #f9d423); */
+  height: 100vh;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  width: 100%;
+  max-width: 500px;
+  padding: 20px;
+}
+
+/* Login Container Styling */
+.login-container {
+  background-color: white;
+  padding: 40px 30px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.l-s {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  justify-content: space-around;
+  margin-bottom: 30px;
+  margin-right: 20px;
+
+}
+
+.loginBtn{
+  font-size: 20px;
+  border: none;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+/* .login-heading a {
+  text-decoration: none;
+  color: #333;
+  font-size: 18px;
+  font-weight: bold;
+  transition: color 0.3s ease;
+} */
+
+.login-heading a:hover {
+  color: #f06;
+}
+
+/* Input Fields */
+.login-details .login-txt {
+  margin-bottom: 15px;
+}
+
+.login-txt input {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #f06;
+  border-radius: 5px;
+  outline: none;
+  font-size: 16px;
+  background-color: #f9f9f9;
+}
+
+.login-txt input:focus {
+  border-color: #f9d423;
+  background-color: #fff;
+}
+
+/* Remember Me */
+.login-remember {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 20px;
+}
+
+.login-remember input {
+  margin-right: 10px;
+}
+
+.login-month p {
+  margin: 0;
+  font-size: 14px;
+  color: #555;
+}
+
+/* Button */
+.login-button button {
+  background-color: #f06;
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  font-size: 18px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.login-button button:hover {
+  background-color: #f9d423;
+}
