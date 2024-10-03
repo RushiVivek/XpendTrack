@@ -1,113 +1,154 @@
-/* Body and Container Styling */
+/* General Styles */
 body {
-  font-family: 'Arial', sans-serif;
-  /* background: linear-gradient(135deg, #f06, #f9d423); */
-  height: 100vh;
-  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background-color: #f4f4f4;
   display: flex;
   justify-content: center;
   align-items: center;
+  min-height: 100vh;
+  margin: 0;
 }
 
 .container {
+  background-color: #ffffff;
   width: 100%;
-  max-width: 500px;
+  max-width: 400px;
   padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
 }
 
-/* Login Container Styling */
-.login-container {
-  background-color: white;
-  padding: 40px 30px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  border-radius: 15px;
-  display: flex;
-  flex-direction: column;
+h4 {
   text-align: center;
-}
-
-.l-s {
-  display: flex;
-  flex-direction: row;
-  flex: 1;
-  justify-content: space-around;
-  margin-bottom: 30px;
-  margin-right: 20px;
-
-}
-
-.loginBtn{
-  font-size: 20px;
-  border: none;
-  padding: 10px 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-}
-
-/* .login-heading a {
-  text-decoration: none;
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 20px;
   color: #333;
-  font-size: 18px;
-  font-weight: bold;
-  transition: color 0.3s ease;
-} */
-
-.login-heading a:hover {
-  color: #f06;
 }
 
-/* Input Fields */
-.login-details .login-txt {
-  margin-bottom: 15px;
+/* Alert System (common for both pages) */
+.alert-sys {
+  display: none;
+  align-items: center;
+  background-color: #ffebee;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  font-size: 14px;
 }
 
-.login-txt input {
-  width: 100%;
-  padding: 12px;
-  border: 2px solid #f06;
-  border-radius: 5px;
-  outline: none;
-  font-size: 16px;
-  background-color: #f9f9f9;
-}
-
-.login-txt input:focus {
-  border-color: #f9d423;
-  background-color: #fff;
-}
-
-/* Remember Me */
-.login-remember {
+.alert-sym {
+  margin-right: 10px;
+  font-size: inherit;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+}
+
+.alert-txt {
+  font-size: inherit;
+  color: #e74c3c;
+}
+
+/* Form Elements */
+.login-details, .signup-details {
   margin-bottom: 20px;
 }
 
-.login-remember input {
+.login-info, .signup-info {
+  margin-bottom: 15px;
+}
+
+input[type="email"],
+input[type="password"] {
+  width: 100%;
+  padding: 12px;
+  font-size: 14px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+input[type="checkbox"] {
   margin-right: 10px;
 }
 
-.login-month p {
-  margin: 0;
-  font-size: 14px;
-  color: #555;
+/* Extra elements (Remember me, Show password) */
+.login-extra, .signup-extra {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
 }
 
-/* Button */
-.login-button button {
-  background-color: #f06;
+.show-password {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.show-password input {
+  margin-right: 5px;
+}
+
+/* Buttons */
+button {
+  width: 100%;
+  padding: 12px;
+  background-color: #007bff;
   color: white;
   border: none;
-  padding: 12px 30px;
-  font-size: 18px;
-  border-radius: 5px;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+/* Social-apps Buttons */
+.social-acnt {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.social-acnt p {
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+.social-icns {
+  display: flex;
+  justify-content: center;
+}
+
+.social-icn {
+  background-color: white;
+  border: none;
+  padding: 10px;
+  margin: 0 5px;
+  border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
-.login-button button:hover {
-  background-color: #f9d423;
+.social-icn svg:hover {
+  color: black;
+}
+
+.signup-link, .login-link {
+  color: #007bff;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.signup-link:hover, .login-link:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .container {
+    max-width: 100%;
+    margin: 20px;
+  }
 }
