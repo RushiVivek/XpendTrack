@@ -1,0 +1,58 @@
+.navbar {
+  position: fixed;
+  height: 60px;
+  width: 100%;
+  background-color: #1a1a1a;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+#sidebar-btn {
+  background-color: transparent;
+  cursor: pointer;
+  padding: 10px;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+#sidebar-btn:hover {
+  border: 2px solid gray;
+  border-radius: 5px;
+}
+
+#sidebar-btn svg {
+  stroke: #fff; 
+  width: 30px;
+  height: 30px;
+  transition: stroke 0.3s ease;
+}
+
+#sidebar-btn:hover svg {
+  stroke: gray;
+}
+
+#profile {
+  padding: 10px;
+  margin-right: 25px;
+}
+
+#profile img {
+  vertical-align: middle;
+  object-fit: cover;
+  margin: none;
+  padding: none;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  transition: transform 0.3s ease, border 0.3s ease;
+}
+
+#profile img:hover {
+  transform: scale(1.1);
+  border: 2px solid gray;
+}
