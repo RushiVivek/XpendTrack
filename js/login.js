@@ -1,26 +1,25 @@
-let username = document.getElementById("email-inp");
-// let password = document.getElementById("password-inp");
-let password = document.getElementsByClassName("pwd");
-let invalids = document.getElementsByClassName("alert-sys");
-let alert_msg = document.getElementById("alert");
-
 function LoginHit() {
+    let username = document.getElementById("email-inp");
+    let password = document.getElementsByClassName("pwd")[0];
+    let invalids = document.getElementsByClassName("alert-sys")[0];
+    let alert_msg = document.getElementById("alert");
     let email_input = username.value;
     let pass_input = password.value;
 
     if (email_input === "" || pass_input === "") {
         alert_msg.textContent = "Error! Enter email and password";
-        if (invalids.style.display == none || invalids.style.display == "")
-            invalids.style.display = flex;
+        if (invalids.style.display == "none" || invalids.style.display == "")
+            invalids.style.display = "flex";
     }
 }
 
-function showPassword(eleID) {
-    const x = document.getElementById(eleID);
-    if (x.type === "password") {
-        x.type = "text";
-    } else {
-        x.type = "password";
+function showPassword(cla) {
+    for (const x of document.getElementsByClassName(cla)) {
+        if (x.type === "password") {
+            x.type = "text";
+        } else {
+            x.type = "password";
+        }
     }
 }
 
@@ -129,6 +128,17 @@ async function signInWithGoogle() {
         console.log("Signed in as", user.displayName);
     } catch (error) {
         console.error("Error signing in with Google:", error);
+    }
+}
+
+async function signInWithFacebook() {
+    try {
+        const provider = new firebase.auth.FacebookAuthProvider();
+        const result = await firebase.auth().signInWithPopup(provider);
+        const user = result.user;
+        console.log("Signed in as", user.displayName);
+    } catch (error) {
+        console.error("Error signing in with Facebook:", error);
     }
 }
 

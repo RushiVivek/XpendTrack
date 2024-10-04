@@ -61,12 +61,14 @@
 
                 <!-- Show Password and Remember Me -->
                 <div class="show-password">
-                    <input
+                    <div>
+                        <input
                         type="checkbox"
                         id="show-pwd-box"
-                        onclick="showPassword('password-inp')"
-                    />
-                    <label for="remember">Show password</label>
+                        onclick="showPassword('pwd')"
+                        />
+                        <label for="show-pwd-box">Show password</label>
+                    </div>
                 </div>
                 <div class="login-extra">
                     <div class="login-remember">
@@ -134,5 +136,6 @@
             </div>
         </div>
         <script src="js/login.js"></script>
+        <script type="module" src="js/firebase.js"></script>
     </body>
 </html>

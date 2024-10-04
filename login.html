@@ -58,12 +58,17 @@
 
                 <!-- Show Password -->
                 <div class="show-password">
-                    <input
+                    <div>
+                        <input
                         type="checkbox"
                         id="show-pwd-box"
-                        onclick="showPassword('password-inp')"
-                    />
-                    <label for="show-pwd-box">Show password</label>
+                        onclick="showPassword('pwd')"
+                        />
+                        <label for="show-pwd-box">Show password</label>
+                    </div>
+                    <a href="login.html" class="forgot-pswd"
+                        >Forgot password</a
+                    >
                 </div>
 
                 <!-- RMe -->
@@ -132,5 +137,6 @@
         </div>
 
         <script src="js/login.js"></script>
+        <script type="module" src="js/firebase.js"></script>
     </body>
 </html>
