@@ -34,13 +34,14 @@
             </div>
 
             <!-- Login Form -->
+            <form id = "signup-form">
             <div class="login-container">
                 <div class="login-head">
                     <h4 class="login-heading">SignUp</h4>
                 </div>
                 <div class="login-details">
                     <div class="login-info">
-                        <input type="email" placeholder="Email" />
+                        <input type="email" placeholder="Email"  id = "email-inp"/>
                     </div>
                     <div class="login-info">
                         <input
@@ -54,11 +55,12 @@
                         <input
                             type="password"
                             placeholder="Confirm Password"
-                            class="pwd"
+                            class="pwd" 
+                            oninput="compPwd()"
                         />
                     </div>
                 </div>
-
+                
                 <!-- Show Password and Remember Me -->
                 <div class="show-password">
                     <div>
@@ -82,9 +84,9 @@
 
                 <!-- SignUp Button -->
                 <div class="login-btn">
-                    <button>Sign Up</button>
+                    <button onclick = "LoginHit()">Sign Up</button>
                 </div>
-
+            </form>
                 <!-- Social Sign-In -->
                 <div class="social-acnt">
                     <p>or you can sign up with</p>
@@ -135,7 +137,7 @@
                 </div>
             </div>
         </div>
-        <script src="js/login.js"></script>
+        <script src="js/signup.js"></script>
         <script type="module" src="js/firebase.js"></script>
     </body>
 </html>

@@ -8,8 +8,9 @@ function LoginHit() {
 
     if (email_input === "" || pass_input === "") {
         alert_msg.textContent = "Error! Enter email and password";
-        if (invalids.style.display == "none" || invalids.style.display == "")
-            invalids.style.display = "flex";
+        invalids.style.display = "flex";
+    } else {
+        invalids.style.display = "none";
     }
 }
 
@@ -22,6 +23,11 @@ function showPassword(cla) {
         }
     }
 }
+
+// Invalid Email Entry
+document.getElementById("login-form").addEventListener("submit", (e) => {
+    e.preventDefault();
+});
 
 // add perrsistant login
 
