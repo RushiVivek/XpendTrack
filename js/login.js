@@ -1,3 +1,13 @@
+import {
+    getAuth,
+    signInWithEmailAndPassword,
+    GoogleAuthProvider,
+    FacebookAuthProvider,
+    GithubAuthProvider,
+    signInWithPopup,
+    sendEmailVerification,
+} from "https://www.gstatic.com/firebasejs/10.14.0/firebase-auth.js";
+
 function LoginHit() {
     let username = document.getElementById("email-inp");
     let password = document.getElementsByClassName("pwd")[0];
@@ -31,93 +41,42 @@ document.getElementById("login-form").addEventListener("submit", (e) => {
 
 // add perrsistant login
 
-// change chesta
-async function createUser(email, password, profile) {
-    try {
-        const userCredential = await firebase
-            .auth()
-            .createUserWithEmailAndPassword(email, password);
-        const user = userCredential.user;
+const auth = getAuth(app);
 
-        // Send verification email
-        await user.sendEmailVerification();
-        console.log("Verification email sent to", user.email);
-
-        // Create user document in Firestore
-        const uid = user.uid;
-        await db.collection("users").doc(uid).set(profile);
-        console.log("User created with ID:", uid);
-
-        return uid;
-    } catch (error) {
-        console.error("Error creating user:", error);
-    }
-}
-
-// idi kuda
-async function deleteUser(uid) {
-    try {
-        const user = auth.currentUser;
-        if (user && user.uid === uid) {
-            await db.collection("users").doc(uid).delete();
-
-            await user.delete();
-
-            console.log("User deleted:", uid);
-        } else {
-            console.error("Cannot delete user:", uid);
-        }
-    } catch (error) {
-        console.error("Error deleting user:", error);
-    }
-}
-
-async function updateEmail(newEmail) {
-    try {
-        const user = firebase.auth().currentUser;
-        await user.updateEmail(newEmail);
-        console.log("Email updated for user", user.uid);
-    } catch (error) {
-        console.error("Error updating email:", error);
-    }
-}
-
-async function updatePassword(oldPassword, newPassword) {
-    try {
-        const user = firebase.auth().currentUser;
-        const credential = firebase.auth.EmailAuthProvider.credential(
-            user.email,
-            oldPassword
-        );
-        await user.reauthenticateWithCredential(credential);
-        await user.updatePassword(newPassword);
-        console.log("Password updated for user", user.uid);
-    } catch (error) {
-        console.error("Error updating password:", error);
-    }
+function logIn(email, password) {
+    signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+            const user = userCredential.user;
+            console.log("User signed in:", user.email);
+        })
+        .catch((error) => {
+            console.error("Error signing in:", error);
+        });
 }
 
 async function forgotPassword(email) {
-    try {
-        await firebase.auth().sendPasswordResetEmail(email);
-        console.log("Password reset email sent to", email);
-    } catch (error) {
-        console.error("Error sending password reset email:", error);
-    }
+    sendPasswordResetEmail(auth, email)
+        .then(() => {
+            console.log("Password reset email sent to", email);
+        })
+        .catch((error) => {
+            console.error("Error sending password reset email:", error);
+        });
 }
 
-async function sendVerificationEmail() {
-    try {
-        const user = firebase.auth().currentUser;
-        await user.sendEmailVerification();
-        console.log("Verification email sent to", user.email);
-    } catch (error) {
-        console.error("Error sending verification email:", error);
-    }
+function sendVerificationEmail() {
+    const user = auth.currentUser;
+    sendEmailVerification(user)
+        .then(() => {
+            console.log("Verification email sent to", user.email);
+        })
+        .catch((error) => {
+            console.error("Error sending verification email:", error);
+        });
 }
 
 function isEmailVerified() {
-    const user = firebase.auth().currentUser;
+    const user = auth.currentUser;
     if (user) {
         return user.emailVerified;
     } else {
@@ -126,35 +85,38 @@ function isEmailVerified() {
     }
 }
 
-async function signInWithGoogle() {
-    try {
-        const provider = new firebase.auth.GoogleAuthProvider();
-        const result = await firebase.auth().signInWithPopup(provider);
-        const user = result.user;
-        console.log("Signed in as", user.displayName);
-    } catch (error) {
-        console.error("Error signing in with Google:", error);
-    }
+function signInWithGoogle() {
+    const provider = new GoogleAuthProvider();
+    signInWithPopup(auth, provider)
+        .then((result) => {
+            const user = result.user;
+            console.log("User signed in:", user.displayName);
+        })
+        .catch((error) => {
+            console.error("Error signing in with Google:", error);
+        });
 }
 
-async function signInWithFacebook() {
-    try {
-        const provider = new firebase.auth.FacebookAuthProvider();
-        const result = await firebase.auth().signInWithPopup(provider);
-        const user = result.user;
-        console.log("Signed in as", user.displayName);
-    } catch (error) {
-        console.error("Error signing in with Facebook:", error);
-    }
+function signInWithFacebook() {
+    const provider = new FacebookAuthProvider();
+    signInWithPopup(auth, provider)
+        .then((result) => {
+            const user = result.user;
+            console.log("User signed in:", user.displayName);
+        })
+        .catch((error) => {
+            console.error("Error signing in with Facebook:", error);
+        });
 }
 
-async function signInWithGithub() {
-    try {
-        const provider = new firebase.auth.GithubAuthProvider();
-        const result = await firebase.auth().signInWithPopup(provider);
-        const user = result.user;
-        console.log("Signed in as", user.displayName);
-    } catch (error) {
-        console.error("Error signing in with Github:", error);
-    }
+function signInWithGithub() {
+    const provider = new GithubAuthProvider();
+    signInWithPopup(auth, provider)
+        .then((result) => {
+            const user = result.user;
+            console.log("User signed in:", user.displayName);
+        })
+        .catch((error) => {
+            console.error("Error signing in with Github:", error);
+        });
 }

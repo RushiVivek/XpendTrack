@@ -1,176 +1,134 @@
-function LoginHit() {
-  let username = document.getElementById("email-inp");
-  let password = document.getElementsByClassName("pwd")[0];
-  let invalids = document.getElementsByClassName("alert-sys")[0];
-  let alert_msg = document.getElementById("alert");
-  let email_input = username.value;
-  let pass_input = password.value;
+import {
+    getAuth,
+    createUserWithEmailAndPassword,
+    GoogleAuthProvider,
+    FacebookAuthProvider,
+    GithubAuthProvider,
+    signInWithPopup,
+    sendEmailVerification,
+} from "https://www.gstatic.com/firebasejs/10.14.0/firebase-auth.js";
+import { app } from "./firebase.js";
 
-  if (email_input === "" || pass_input === "") {
-      alert_msg.textContent = "Error! Enter email and password";
-      invalids.style.display = "flex";
-  } else {
-      invalids.style.display = "none";
-  }
+function LoginHit() {
+    let username = document.getElementById("email-inp");
+    let password = document.getElementsByClassName("pwd")[0];
+    let invalids = document.getElementsByClassName("alert-sys")[0];
+    let alert_msg = document.getElementById("alert");
+    let email_input = username.value;
+    let pass_input = password.value;
+
+    if (email_input === "" || pass_input === "") {
+        alert_msg.textContent = "Error! Enter email and password";
+        invalids.style.display = "flex";
+    } else {
+        invalids.style.display = "none";
+    }
 }
 
 // Compare Password
-function compPwd(){
-  let confpassword = document.getElementsByClassName("pwd")[1].value;
-  let givpassword = document.getElementsByClassName("pwd")[0].value;
-  let invalids = document.getElementsByClassName("alert-sys")[0];
-  let alert_msg = document.getElementById("alert");
+function compPwd() {
+    let confpassword = document.getElementsByClassName("pwd")[1].value;
+    let givpassword = document.getElementsByClassName("pwd")[0].value;
+    let invalids = document.getElementsByClassName("alert-sys")[0];
+    let alert_msg = document.getElementById("alert");
 
-  if (confpassword !== givpassword) {
-      alert_msg.textContent = "Passwords doesn't match!";
-      invalids.style.display = "flex";
-  } else if (givpassword !== "") {
-      invalids.style.display = "none";
-  }
+    if (confpassword !== givpassword) {
+        alert_msg.textContent = "Passwords doesn't match!";
+        invalids.style.display = "flex";
+    } else if (givpassword !== "") {
+        invalids.style.display = "none";
+    }
 }
 
 function showPassword(cla) {
-  for (const x of document.getElementsByClassName(cla)) {
-      if (x.type === "password") {
-          x.type = "text";
-      } else {
-          x.type = "password";
-      }
-  }
+    for (const x of document.getElementsByClassName(cla)) {
+        if (x.type === "password") {
+            x.type = "text";
+        } else {
+            x.type = "password";
+        }
+    }
 }
 
 // Invalid Email Entry
-document.getElementById("signup-form").addEventListener("submit", (e)=>{
-  e.preventDefault();
-  compPwd();
+document.getElementById("signup-form").addEventListener("submit", (e) => {
+    e.preventDefault();
+    compPwd();
 });
 
 // add perrsistant login
 
-// change chesta
-async function createUser(email, password, profile) {
-  try {
-      const userCredential = await firebase
-          .auth()
-          .createUserWithEmailAndPassword(email, password);
-      const user = userCredential.user;
+const auth = getAuth(app);
 
-      // Send verification email
-      await user.sendEmailVerification();
-      console.log("Verification email sent to", user.email);
+function createUser(email, password, profile) {
+    createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+            const user = userCredential.user;
 
-      // Create user document in Firestore
-      const uid = user.uid;
-      await db.collection("users").doc(uid).set(profile);
-      console.log("User created with ID:", uid);
-
-      return uid;
-  } catch (error) {
-      console.error("Error creating user:", error);
-  }
+            sendEmailVerification(user).then(() => {
+                console.log("Verification email sent to", user.email);
+            });
+            const uid = user.uid;
+            console.log("User created with ID:", uid);
+        })
+        .catch((error) => {
+            console.error("Error creating user:", error.message);
+        });
 }
 
-// idi kuda
-async function deleteUser(uid) {
-  try {
-      const user = auth.currentUser;
-      if (user && user.uid === uid) {
-          await db.collection("users").doc(uid).delete();
-
-          await user.delete();
-
-          console.log("User deleted:", uid);
-      } else {
-          console.error("Cannot delete user:", uid);
-      }
-  } catch (error) {
-      console.error("Error deleting user:", error);
-  }
-}
-
-async function updateEmail(newEmail) {
-  try {
-      const user = firebase.auth().currentUser;
-      await user.updateEmail(newEmail);
-      console.log("Email updated for user", user.uid);
-  } catch (error) {
-      console.error("Error updating email:", error);
-  }
-}
-
-async function updatePassword(oldPassword, newPassword) {
-  try {
-      const user = firebase.auth().currentUser;
-      const credential = firebase.auth.EmailAuthProvider.credential(
-          user.email,
-          oldPassword
-      );
-      await user.reauthenticateWithCredential(credential);
-      await user.updatePassword(newPassword);
-      console.log("Password updated for user", user.uid);
-  } catch (error) {
-      console.error("Error updating password:", error);
-  }
-}
-
-async function forgotPassword(email) {
-  try {
-      await firebase.auth().sendPasswordResetEmail(email);
-      console.log("Password reset email sent to", email);
-  } catch (error) {
-      console.error("Error sending password reset email:", error);
-  }
-}
-
-async function sendVerificationEmail() {
-  try {
-      const user = firebase.auth().currentUser;
-      await user.sendEmailVerification();
-      console.log("Verification email sent to", user.email);
-  } catch (error) {
-      console.error("Error sending verification email:", error);
-  }
+function sendVerificationEmail() {
+    const user = auth.currentUser;
+    sendEmailVerification(user)
+        .then(() => {
+            console.log("Verification email sent to", user.email);
+        })
+        .catch((error) => {
+            console.error("Error sending verification email:", error);
+        });
 }
 
 function isEmailVerified() {
-  const user = firebase.auth().currentUser;
-  if (user) {
-      return user.emailVerified;
-  } else {
-      console.error("No user is signed in.");
-      return false;
-  }
+    const user = auth.currentUser;
+    if (user) {
+        return user.emailVerified;
+    } else {
+        console.error("No user is signed in.");
+        return false;
+    }
 }
 
-async function signInWithGoogle() {
-  try {
-      const provider = new firebase.auth.GoogleAuthProvider();
-      const result = await firebase.auth().signInWithPopup(provider);
-      const user = result.user;
-      console.log("Signed in as", user.displayName);
-  } catch (error) {
-      console.error("Error signing in with Google:", error);
-  }
+function signInWithGoogle() {
+    const provider = new GoogleAuthProvider();
+    signInWithPopup(auth, provider)
+        .then((result) => {
+            const user = result.user;
+            console.log("Signed in as", user.displayName);
+        })
+        .catch((error) => {
+            console.error("Error signing in with Google:", error);
+        });
 }
 
-async function signInWithFacebook() {
-  try {
-      const provider = new firebase.auth.FacebookAuthProvider();
-      const result = await firebase.auth().signInWithPopup(provider);
-      const user = result.user;
-      console.log("Signed in as", user.displayName);
-  } catch (error) {
-      console.error("Error signing in with Facebook:", error);
-  }
+function signInWithFacebook() {
+    const provider = new FacebookAuthProvider();
+    signInWithPopup(auth, provider)
+        .then((result) => {
+            const user = result.user;
+            console.log("Signed in as", user.displayName);
+        })
+        .catch((error) => {
+            console.error("Error signing in with Facebook:", error);
+        });
 }
 
-async function signInWithGithub() {
-  try {
-      const provider = new firebase.auth.GithubAuthProvider();
-      const result = await firebase.auth().signInWithPopup(provider);
-      const user = result.user;
-      console.log("Signed in as", user.displayName);
-  } catch (error) {
-      console.error("Error signing in with Github:", error);
-  }
+function signInWithGithub() {
+    const provider = new GithubAuthProvider();
+    signInWithPopup(auth, provider)
+        .then((result) => {
+            const user = result.user;
+            console.log("Signed in as", user.displayName);
+        })
+        .catch((error) => {
+            console.error("Error signing in with Github:", error);
+        });
 }
