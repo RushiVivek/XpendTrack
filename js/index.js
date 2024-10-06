@@ -1,0 +1,38 @@
+import {
+    getAuth,
+    sendEmailVerification,
+    onAuthStateChanged,
+} from "https://www.gstatic.com/firebasejs/10.14.0/firebase-auth.js";
+import app from "./firebase.js";
+
+const auth = getAuth(app);
+
+onAuthStateChanged(auth, (user) => {
+    if (user) {
+        console.log("User is signed in:", user.email);
+        console.log("firebase persistance?", auth)
+    } else {
+        window.location.replace("login.html");
+    }
+});
+
+function sendVerificationEmail() {
+    const user = auth.currentUser;
+    sendEmailVerification(user)
+        .then(() => {
+            console.log("Verification email sent to", user.email);
+        })
+        .catch((error) => {
+            console.error("Error sending verification email:", error);
+        });
+}
+
+function isEmailVerified() {
+    const user = auth.currentUser;
+    if (user) {
+        return user.emailVerified;
+    } else {
+        console.error("No user is signed in.");
+        return false;
+    }
+}
