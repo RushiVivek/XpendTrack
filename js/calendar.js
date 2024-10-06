@@ -1,8 +1,8 @@
-let currentMonth = 0;
-let clickedDay = null;
-let events = localStorage.getItem("events")
-  ? JSON.parse(localStorage.getItem("events"))
-  : [];
+let monthChanger = 0;
+// let clickedDay = null;
+// let events = localStorage.getItem("events")
+//   ? JSON.parse(localStorage.getItem("events"))
+//   : [];
 
 const calendar = document.getElementById("calendar");
 const weekDays = [
@@ -15,20 +15,22 @@ const weekDays = [
   "Saturday",
 ];
 
-function load() {
+// Load Calendar
+function loadCalendar() {
   const dt = new Date();
 
-  if (currentMonth !== 0) {
-    dt.setMonth(new Date().getMonth() + currentMonth);
+  if (monthChanger !== 0) {
+    dt.setMonth(new Date().getMonth() + monthChanger);
   }
 
+  // Today
   const day = dt.getDate();
   const month = dt.getMonth();
   const year = dt.getFullYear();
 
+  //Firstday and Num days of month
   const firstDayofMonth = new Date(year, month, 1);
   const numDaysInMonth = new Date(year, month + 1, 0).getDate();
-  //last date of current month == num days
 
   const dateString = firstDayofMonth.toLocaleDateString("en-us", {
     weekday: "long",
@@ -36,15 +38,17 @@ function load() {
     month: "numeric",
     day: "numeric",
   });
-  // console.log(dateString);
 
   document.getElementById("monthDisplay").innerText = `${dt.toLocaleDateString(
     "en-us",
     { month: "long" }
   )} ${year}`;
+
+  // Days before start
   const paddingDays = weekDays.indexOf(dateString.split(", ")[0]);
 
-  calendar.innerHTML = ""; //Wipe before creating
+  // Clear before load
+  calendar.innerHTML = "";
 
   for (let i = 1; i <= paddingDays + numDaysInMonth; i++) {
     const daySquare = document.createElement("div");
@@ -53,7 +57,13 @@ function load() {
     if (i > paddingDays) {
       daySquare.innerText = i - paddingDays;
 
-      daySquare.addEventListener("click", () => console.log("click"));
+      if (i - paddingDays === day && monthChanger === 0) {
+        daySquare.style.backgroundColor = "rgba(204,255,153, 0.5)";
+      }
+
+      daySquare.addEventListener("click", () =>
+        openDate(`${month + 1}/${i - paddingDays}/${year}`)
+      );
     } else {
       daySquare.classList.add("padding");
     }
@@ -62,17 +72,24 @@ function load() {
   }
 }
 
+// Month Changer
 function changeMonth() {
   document.getElementById("nextMonth").addEventListener("click", () => {
-    currentMonth++;
-    load();
+    monthChanger++;
+    loadCalendar();
   });
 
   document.getElementById("prevMonth").addEventListener("click", () => {
-    currentMonth--;
-    load();
+    monthChanger--;
+    loadCalendar();
+  });
+
+  document.getElementById("currMonth").addEventListener("click", () => {
+    monthChanger = 0;
+    loadCalendar();
   });
 }
 
+// Function Calls
 changeMonth();
-load();
+loadCalendar();
