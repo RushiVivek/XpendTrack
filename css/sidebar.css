@@ -3,5 +3,7 @@
   height: 100%;
   width: 200px;
   top: 60px;
-  background-color: #1a1a1a;
+  /* background-color: #1a1a1a; */
+  background-color: white;
+  z-index: -10000;
 }

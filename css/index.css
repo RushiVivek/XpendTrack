@@ -1,6 +1,69 @@
+/* Body and layout */
 body {
   font-family: 'Poppins', sans-serif;
   background-color: #f4f4f4;
-  min-height: 100vh;
   margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  background-color: #333;
+  padding: 10px;
+}
+
+.navbar #profile img {
+  width: 40px;
+  border-radius: 50%;
+}
+
+/* Sidebar */
+.side-bar {
+  background-color: #333;
+  color: white;
+  width: 250px;
+  min-height: 100vh;
+  transition: width 0.3s;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+}
+
+.side-bar.collapsed {
+  width: 50px;
+}
+
+/* Sidebar toggle button */
+#sidebar-btn {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+#sidebar-btn svg {
+  width: 24px;
+  height: 24px;
+  fill: #ffffff;
+}
+
+/* Calendar-container */
+.container{
+  background-color: aqua;
+  height: 500px;
+  width: 100%;
+  
+  position: fixed;
+  top: 60px;
+  left: 100px;
+  border: none;
+  border-radius: 10px;
+  
+  margin: 10px 20px;
+  z-index: 10000;
+}
+
