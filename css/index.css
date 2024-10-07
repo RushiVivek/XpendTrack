@@ -1,4 +1,7 @@
 /* Body and layout */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;400&display=swap');
+
+
 body {
   font-family: 'Poppins', sans-serif;
   background-color: #f4f4f4;
@@ -51,19 +54,41 @@ body {
   fill: #ffffff;
 }
 
-/* Calendar-container */
-.container{
-  background-color: aqua;
-  height: 500px;
-  width: 100%;
-  
-  position: fixed;
-  top: 60px;
-  left: 100px;
-  border: none;
-  border-radius: 10px;
-  
-  margin: 10px 20px;
-  z-index: 10000;
+/* balance and expenditure */
+
+.bal-exp{
+  display: flex;
+  margin-left: 350px;
+  margin-top: 130px;
+}
+
+.bal-exp #balance{
+  flex: 1;
+  margin-right: 100px;
+
+  background-color: rgba(168, 230, 206, 0.7);
+  align-items: center;
+  justify-content: center;
+}
+
+.bal-exp-head p{
+  font-family: 'Poppins' ;
+  font-size: 20px;
+  margin: 10px 0px;
+  font-weight: 800;
+}
+
+.bal-exp #expenditure{
+  flex: 1;
+  margin-right: 100px;
+
+  background-color: rgba(255, 171, 171, 0.7);
+}
+
+.amount p{
+  font-family: 'Poppins';
+  font-weight: 1000;
+  font-size: 40px;
+  margin: 3px 0px;
 }
 

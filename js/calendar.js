@@ -1,10 +1,12 @@
 let monthChanger = 0;
-// let clickedDay = null;
-// let events = localStorage.getItem("events")
-//   ? JSON.parse(localStorage.getItem("events"))
-//   : [];
+let clickedDay = null;
+let events = localStorage.getItem("events")
+  ? JSON.parse(localStorage.getItem("events"))
+  : [];
 
 const calendar = document.getElementById("calendar");
+const newEventModal = document.getElementById("newEventModal");
+const backDrop = document.getElementById("modalBackDrop");
 const weekDays = [
   "Sunday",
   "Monday",
@@ -14,6 +16,63 @@ const weekDays = [
   "Friday",
   "Saturday",
 ];
+
+function openDate(date) {
+  clickedDay = date;
+  const [month, day, year] = clickedDay.split("/");
+  const formattedDate = new Date(year, month - 1, day).toLocaleDateString(
+    "en-us",
+    {
+      day: "numeric",
+      month: "long",
+    }
+  );
+  document.querySelector("#newEventModal h2").innerText = `${formattedDate}`;
+
+  newEventModal.style.display = "block";
+  backDrop.style.display = "block";
+}
+
+function addCashflowData(type, amount, note) {
+  const cashflowDataDiv = document.querySelector(".cashflow-data");
+
+  const entryDiv = document.createElement("div");
+  entryDiv.classList.add("cashflow-entry");
+
+  entryDiv.innerHTML = `
+    <span>${type}: $${amount} - ${note}</span>
+    <button class="deleteEntry" style="float: right;">x</button>
+  `;
+
+  // Append the new entry to the data div
+  cashflowDataDiv.appendChild(entryDiv);
+
+  entryDiv.querySelector(".deleteEntry").addEventListener("click", function () {
+    cashflowDataDiv.removeChild(entryDiv);
+  });
+}
+
+document.getElementById("saveButton").addEventListener("click", function () {
+  const amount = document.getElementById("cashflow-amount").value;
+  const note = document.getElementById("cashflow-note").value;
+
+  const selectedType = document.querySelector(
+    ".cashflow-type button.selected"
+  ).innerText;
+
+  addCashflowData(selectedType, amount, note);
+
+  document.getElementById("cashflow-amount").value = "";
+  document.getElementById("cashflow-note").value = "";
+});
+
+const cashflowButtons = document.querySelectorAll(".cashflow-type button");
+cashflowButtons.forEach((button) => {
+  button.addEventListener("click", function () {
+    cashflowButtons.forEach((btn) => btn.classList.remove("selected"));
+    button.classList.add("selected");
+  });
+});
 
 // Load Calendar
 function loadCalendar() {

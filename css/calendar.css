@@ -1,8 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;400&display=swap');
+
 body {
  display: flex;
  margin-top: 50px;
  justify-content: center;
  background-color: #FFFCFF;
+ font-family: 'Poppins', Arial, Helvetica, sans-serif;
 }
 button {
  width: 75px;
@@ -26,32 +29,38 @@ button {
 #header button {
  background-color:#92a1d1;
 }
+
 #container {
- width: 770px;
-}
-#weekdays {
  width: 100%;
- display: flex;
+ max-width: 770px;
+ padding: 10px;
+ box-sizing: border-box;
+}
+
+#weekdays {
+ display: grid;
+ grid-template-columns: repeat(7, 1fr);
  color: #247BA0;
+ text-align: center;
 }
 #weekdays div {
- width: 100px;
  padding: 10px;
 }
+
 #calendar {
+ display: grid;
+ grid-template-columns: repeat(7, 1fr);
+ grid-gap: 5px;
  width: 100%;
  margin: auto;
- display: flex;
- flex-wrap: wrap;
 }
+
 .day {
- width: 100px;
  padding: 10px;
  height: 100px;
  cursor: pointer;
  box-sizing: border-box;
  background-color: white;
- margin: 5px;
  box-shadow: 0px 0px 3px #CBD4C2;
  display: flex;
  flex-direction: column;
@@ -122,4 +131,121 @@ button {
  height: 100vh;
  position: absolute;
  background-color: rgba(0,0,0,0.8);
+}
+
+/* CashFlow type */
+
+.cashflow-data {
+  max-height: 200px;
+  overflow-y: auto;
+  margin-top: 10px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0px 0px 2px gray;
+}
+
+/* Styling for the cashflow entries */
+.cashflow-entry {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px;
+  margin: 5px 0;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  box-shadow: 0px 0px 2px lightgray;
+}
+
+.cashflow-entry.income { background-color: rgba(76, 175, 80, 0.2); /* Light Green */ }
+.cashflow-entry.expense { background-color: rgba(244, 67, 54, 0.2); /* Light Red */ }
+.cashflow-entry.transfer { background-color: rgba(255, 152, 0, 0.2); /* Light Orange */ }
+
+.cashflow-entry .cashflow-type {
+  font-weight: bold;
+}
+
+.cashflow-entry .cashflow-amount {
+  margin-left: auto;
+}
+
+.cashflow-type {
+  display: flex;
+  justify-content: space-between;
+}
+
+.cashflow-type button {
+  width: 30%;
+  padding: 10px;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.cashflow-type button:nth-child(1) {
+  background-color: #4caf50; /* Income: Green */
+  color: white;
+}
+
+.cashflow-type button:nth-child(2) {
+  background-color: #f44336; /* Expense: Red */
+  color: white;
+}
+
+.cashflow-type button:nth-child(3) {
+  background-color: #ff9800; /* Transfer: Orange */
+  color: white;
+}
+
+/* Style the input boxes */
+.note input {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+  box-shadow: 0px 0px 3px gray;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-family: 'Poppins', Arial, sans-serif;
+  box-sizing: border-box;
+}
+
+/* Align the "Add" button to the right */
+#saveButton {
+  float: right;
+  background-color: #247BA0;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* Summary section at the bottom of the modal */
+.summary {
+  margin-top: 15px;
+  padding: 10px;
+  border-top: 1px solid #ccc;
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+}
+
+.summary div {
+  width: 33%;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .day {
+    height: 80px;
+  }
+}
+
+@media (max-width: 480px) {
+  .day {
+    height: 60px;
+  }
+  #weekdays div {
+    font-size: 12px;
+    padding: 5px;
+  }
 }
