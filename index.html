@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,6 +9,7 @@
     <link rel="stylesheet" href="CSS/sidebar.css">
     <link rel="stylesheet" href="CSS/index.css">
 </head>
+
 <body>
     <nav class="navbar">
         <div class="logo">XpendTrack</div>
@@ -28,7 +30,7 @@
             <li><a href="#summary">Summary</a></li>
             <li><a href="#about">About</a></li>
             <li><a href="#trip">For Trip Section</a></li>
-            <li><img src="xpendtrack.jpg" alt="XpendTrack" width="50"></li>
+            <li><img src="_images/xpendtrack.jpg" alt="XpendTrack" width="50"></li>
         </ul>
     </div>
 
@@ -40,7 +42,7 @@
         }
 
         // Close dropdown when clicking outside
-        window.onclick = function(event) {
+        window.onclick = function (event) {
             if (!event.target.matches('.profile-icon')) {
                 var dropdown = document.getElementById("dropdown");
                 if (dropdown.classList.contains('show')) {
@@ -59,4 +61,5 @@
     <!-- calendar -->
     <script type="module" src="js/index.js"></script>
 </body>
+
 </html>
