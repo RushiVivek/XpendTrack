@@ -6,8 +6,11 @@ import {
     GithubAuthProvider,
     signInWithPopup,
     sendEmailVerification,
+    setPersistence,
+    browserLocalPersistence,
+    browserSessionPersistence,
 } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-auth.js";
-import { app } from "./firebase.js";
+import app from "./firebase.js";
 
 function LoginHit() {
     let username = document.getElementById("email-inp");
@@ -20,9 +23,11 @@ function LoginHit() {
     if (email_input === "" || pass_input === "") {
         alert_msg.textContent = "Error! Enter email and password";
         invalids.style.display = "flex";
-    } else {
+        return false;
+    } else if (alert_msg.textContent === "Error! Enter email and password") {
         invalids.style.display = "none";
     }
+    return true;
 }
 
 // Compare Password
@@ -35,9 +40,11 @@ function compPwd() {
     if (confpassword !== givpassword) {
         alert_msg.textContent = "Passwords doesn't match!";
         invalids.style.display = "flex";
-    } else if (givpassword !== "") {
+        return false;
+    } else if (alert_msg.textContent === "Passwords doesn't match!") {
         invalids.style.display = "none";
     }
+    return true;
 }
 
 function showPassword(cla) {
@@ -50,17 +57,51 @@ function showPassword(cla) {
     }
 }
 
+document
+    .getElementById("confirm-password-inp")
+    .addEventListener("input", () => {
+        compPwd();
+    });
+
+document.getElementById("show-pwd-box").addEventListener("click", () => {
+    showPassword("pwd");
+});
+
+document.getElementById("login-submit").addEventListener("click", () => {
+    LoginHit();
+});
+
+// todo:
+// 1. password length
+// 2. email validation
+// 3. prexisting email
+
 // Invalid Email Entry
 document.getElementById("signup-form").addEventListener("submit", (e) => {
     e.preventDefault();
-    compPwd();
+    console.log("Form Submitted");
+    if (compPwd() && LoginHit()) {
+        if (document.getElementById("remember").checked) {
+            setPersistence(auth, browserLocalPersistence).then(() => {
+                createUser(
+                    document.getElementById("email-inp").value,
+                    document.getElementsByClassName("pwd")[0].value
+                );
+            });
+        } else {
+            setPersistence(auth, browserSessionPersistence).then(() => {
+                createUser(
+                    document.getElementById("email-inp").value,
+                    document.getElementsByClassName("pwd")[0].value
+                );
+            });
+        }
+    }
 });
-
-// add perrsistant login
 
 const auth = getAuth(app);
 
-function createUser(email, password, profile) {
+function createUser(email, password, target = "index.html") {
     createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
             const user = userCredential.user;
@@ -70,31 +111,11 @@ function createUser(email, password, profile) {
             });
             const uid = user.uid;
             console.log("User created with ID:", uid);
+            window.location.replace(target);
         })
         .catch((error) => {
-            console.error("Error creating user:", error.message);
+            console.error("Error creating user:", error);
         });
-}
-
-function sendVerificationEmail() {
-    const user = auth.currentUser;
-    sendEmailVerification(user)
-        .then(() => {
-            console.log("Verification email sent to", user.email);
-        })
-        .catch((error) => {
-            console.error("Error sending verification email:", error);
-        });
-}
-
-function isEmailVerified() {
-    const user = auth.currentUser;
-    if (user) {
-        return user.emailVerified;
-    } else {
-        console.error("No user is signed in.");
-        return false;
-    }
 }
 
 function signInWithGoogle() {

@@ -55,8 +55,8 @@
                         <input
                             type="password"
                             placeholder="Confirm Password"
-                            class="pwd" 
-                            oninput="compPwd()"
+                            class="pwd"
+                            id="confirm-password-inp"
                         />
                     </div>
                 </div>
@@ -67,14 +67,13 @@
                         <input
                         type="checkbox"
                         id="show-pwd-box"
-                        onclick="showPassword('pwd')"
                         />
                         <label for="show-pwd-box">Show password</label>
                     </div>
                 </div>
                 <div class="login-extra">
                     <div class="login-remember">
-                        <input type="checkbox" id="remember" />
+                        <input type="checkbox" id="remember" checked />
                         <label for="remember">Remember me</label>
                     </div>
                     <a href="login.html" class="signup-link"
@@ -84,7 +83,7 @@
 
                 <!-- SignUp Button -->
                 <div class="login-btn">
-                    <button onclick = "LoginHit()">Sign Up</button>
+                    <button id="login-submit">Sign Up</button>
                 </div>
             </form>
                 <!-- Social Sign-In -->
@@ -137,7 +136,6 @@
                 </div>
             </div>
         </div>
-        <script src="js/signup.js"></script>
-        <script type="module" src="js/firebase.js"></script>
+        <script type="module" src="js/signup.js"></script>
     </body>
 </html>

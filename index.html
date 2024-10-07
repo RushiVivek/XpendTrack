@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,30 +9,54 @@
     <link rel="stylesheet" href="CSS/sidebar.css">
     <link rel="stylesheet" href="CSS/index.css">
 </head>
+
 <body>
-    <!-- Nav-bar -->
-    <div class="navbar">
-        <!-- sidebar-btn -->
-        <button id="sidebar-btn">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-align-justify"><line x1="3" x2="21" y1="6" y2="6"/><line x1="3" x2="21" y1="12" y2="12"/><line x1="3" x2="21" y1="18" y2="18"/></svg>
-        </button>
+    <nav class="navbar">
+        <div class="logo">XpendTrack</div>
+        <ul class="nav-links">
+        </ul>
+        <div class="profile-icon" onclick="toggleDropdown()">
+            &#9818;
+        </div>
+        <div id="dropdown" class="dropdown-content">
+            <p>Email: user@example.com</p>
+            <button class="logout-btn">Logout</button>
+        </div>
+    </nav>
 
-        <!-- Profile pic -->
-        <div id="profile"><img src="_images/default-user.png" alt="Profile"></div>
+    <!-- Sidebar -->
+    <div class="side-bar" id="sidebar">
+        <ul>
+            <li><a href="#summary">Summary</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#trip">For Trip Section</a></li>
+            <li><img src="_images/xpendtrack.jpg" alt="XpendTrack" width="50"></li>
+        </ul>
     </div>
 
-    <!-- side-bar -->
-    <div class="side-bar">
-        <div class="features">
+    <script>
+        // Toggle dropdown
+        function toggleDropdown() {
+            var dropdown = document.getElementById("dropdown");
+            dropdown.classList.toggle("show");
+        }
 
-        </div>
-        <div class="features"></div>
+        // Close dropdown when clicking outside
+        window.onclick = function (event) {
+            if (!event.target.matches('.profile-icon')) {
+                var dropdown = document.getElementById("dropdown");
+                if (dropdown.classList.contains('show')) {
+                    dropdown.classList.remove('show');
+                }
+            }
+        }
 
-        </div>
-        <div class="features"></div>
-
-        </div>
-    </div>
+        // Toggle the sidebar on small screens
+        function toggleSidebar() {
+            var sidebar = document.getElementById("sidebar");
+            sidebar.classList.toggle("open");
+        }
+    </script>
 
     <!-- Balance && Expenditure -->
     <div class="bal-exp">
@@ -64,7 +89,8 @@
 
 
 
-    <script src="js/index.js"></script>
+    <script type "module" src="js/index.js"></script>
     <script type="module" src="js/firebase.js"></script>
 </body>
+
 </html>

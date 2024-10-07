@@ -63,7 +63,6 @@
                         <input
                         type="checkbox"
                         id="show-pwd-box"
-                        onclick="showPassword('pwd')"
                         />
                         <label for="show-pwd-box">Show password</label>
                     </div>
@@ -76,14 +75,14 @@
                 <div class="login-extra">
                     <div class="login-remember">
                         <input type="checkbox" id="remember" />
-                        <label for="remember">Remember me for a month</label>
+                        <label for="remember">Remember me</label>
                     </div>
                     <a href="signin.html" class="signup-link">Register</a>
                 </div>
 
                 <!-- Login Button -->
                 <div class="login-btn">
-                    <button onclick="LoginHit()">Log in</button>
+                    <button id="login-submit">Log in</button>
                 </div>
                 </form>
                 <!-- Social Sign-In -->
@@ -137,7 +136,6 @@
             </div>
         </div>
 
-        <script src="js/login.js"></script>
-        <script type="module" src="js/firebase.js"></script>
+        <script type="module" src="js/login.js"></script>
     </body>
 </html>

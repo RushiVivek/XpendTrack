@@ -7,6 +7,7 @@ import {
     signInWithPopup,
     sendEmailVerification,
 } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-auth.js";
+import app from "./firebase.js";
 
 function LoginHit() {
     let username = document.getElementById("email-inp");
@@ -34,6 +35,14 @@ function showPassword(cla) {
     }
 }
 
+document.getElementById("show-pwd-box").addEventListener("click", () => {
+    showPassword("pwd");
+});
+
+document.getElementById("login-submit").addEventListener("click", () => {
+    LoginHit();
+});
+
 // Invalid Email Entry
 document.getElementById("login-form").addEventListener("submit", (e) => {
     e.preventDefault();
@@ -43,18 +52,19 @@ document.getElementById("login-form").addEventListener("submit", (e) => {
 
 const auth = getAuth(app);
 
-function logIn(email, password) {
+function logIn(email, password, target="index.html") {
     signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
             const user = userCredential.user;
             console.log("User signed in:", user.email);
+            window.location.replace(target);
         })
         .catch((error) => {
             console.error("Error signing in:", error);
         });
 }
 
-async function forgotPassword(email) {
+function forgotPassword(email) {
     sendPasswordResetEmail(auth, email)
         .then(() => {
             console.log("Password reset email sent to", email);
@@ -62,27 +72,6 @@ async function forgotPassword(email) {
         .catch((error) => {
             console.error("Error sending password reset email:", error);
         });
-}
-
-function sendVerificationEmail() {
-    const user = auth.currentUser;
-    sendEmailVerification(user)
-        .then(() => {
-            console.log("Verification email sent to", user.email);
-        })
-        .catch((error) => {
-            console.error("Error sending verification email:", error);
-        });
-}
-
-function isEmailVerified() {
-    const user = auth.currentUser;
-    if (user) {
-        return user.emailVerified;
-    } else {
-        console.error("No user is signed in.");
-        return false;
-    }
 }
 
 function signInWithGoogle() {

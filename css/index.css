@@ -62,6 +62,7 @@ body {
   margin-top: 130px;
 }
 
+
 .bal-exp #balance{
   flex: 1;
   margin-right: 100px;
@@ -92,3 +93,163 @@ body {
   margin: 3px 0px;
 }
 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #333;
+  color: #fff;
+  padding: 10px 20px;
+  position: relative;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+}
+
+.nav-links li {
+  margin-left: 20px;
+}
+
+.nav-links li a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 18px;
+}
+
+.profile-icon {
+  cursor: pointer;
+  font-size: 24px;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  right: 20px;
+  top: 50px;
+  background-color: #fff;
+  color: #333;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  padding: 12px 16px;
+  border-radius: 4px;
+}
+
+.dropdown-content p {
+  margin: 10px 0;
+}
+
+.dropdown-content button.logout-btn {
+  background-color: #333;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.dropdown-content button.logout-btn:hover {
+  background-color: #555;
+}
+
+.show {
+  display: block;
+}
+
+/* Sidebar styles */
+.side-bar {
+  position: fixed;
+  height: 100%;
+  width: 200px;
+  top: 60px;
+  left: 0;
+  background-color: #1a1a1a;
+  overflow: auto;
+  transition: width 0.3s;
+}
+
+.side-bar ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.side-bar ul li {
+  padding: 15px;
+  text-align: center;
+}
+
+.side-bar ul li a {
+  color: white;
+  text-decoration: none;
+  display: block;
+}
+
+.side-bar ul li a:hover {
+  background-color: #575757;
+}
+
+.side-bar ul li img {
+  margin-top: 10px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media screen and (max-width: 768px) {
+  .side-bar {
+    width: 0;
+    top: 60px;
+    overflow: hidden;
+  }
+
+  .side-bar ul {
+    display: none;
+  }
+
+  .side-bar.open {
+    width: 200px;
+  }
+
+  .side-bar.open ul {
+    display: block;
+  }
+
+  .menu-icon {
+    display: block;
+    cursor: pointer;
+    font-size: 28px;
+    color: white;
+  }
+}
+
+@media screen and (min-width: 769px) {
+  .menu-icon {
+    display: none;
+  }
+
+  .side-bar {
+    width: 200px;
+  }
+
+  .side-bar ul {
+    display: block;
+  }
+}
