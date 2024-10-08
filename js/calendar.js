@@ -1,152 +1,122 @@
 let monthChanger = 0;
 let clickedDay = null;
-let events = localStorage.getItem("events")
-  ? JSON.parse(localStorage.getItem("events"))
-  : [];
 
 const calendar = document.getElementById("calendar");
-const newEventModal = document.getElementById("newEventModal");
-const backDrop = document.getElementById("modalBackDrop");
+const popupBackground = document.getElementById("popup-remover");
+const popupShower = document.getElementById("popup-inputs");
+const PopUpX = document.getElementById("closeBtn");
+
 const weekDays = [
-  "Sunday",
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursaday",
-  "Friday",
-  "Saturday",
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
 ];
 
-function openDate(date) {
-  clickedDay = date;
-  const [month, day, year] = clickedDay.split("/");
-  const formattedDate = new Date(year, month - 1, day).toLocaleDateString(
-    "en-us",
-    {
-      day: "numeric",
-      month: "long",
-    }
-  );
-  document.querySelector("#newEventModal h2").innerText = `${formattedDate}`;
-
-  newEventModal.style.display = "block";
-  backDrop.style.display = "block";
+// Popup and BAckground
+function showPopUp() {
+    document.getElementById("popup-inputs").style.display = "flex";
+    document.getElementById("incomeBtn").click();
+    popupBackground.style.display = "block";
 }
 
-function addCashflowData(type, amount, note) {
-  const cashflowDataDiv = document.querySelector(".cashflow-data");
-
-  const entryDiv = document.createElement("div");
-  entryDiv.classList.add("cashflow-entry");
-
-  entryDiv.innerHTML = `
-    <span>${type}: $${amount} - ${note}</span>
-    <button class="deleteEntry" style="float: right;">x</button>
-  `;
-
-  // Append the new entry to the data div
-  cashflowDataDiv.appendChild(entryDiv);
-
-  entryDiv.querySelector(".deleteEntry").addEventListener("click", function () {
-    cashflowDataDiv.removeChild(entryDiv);
-  });
+function closePopUp() {
+    popupShower.style.display = "none";
+    popupBackground.style.display = "none";
+    clickedDay = null;
+    loadCalendar();
 }
-
-document.getElementById("saveButton").addEventListener("click", function () {
-  const amount = document.getElementById("cashflow-amount").value;
-  const note = document.getElementById("cashflow-note").value;
-
-  const selectedType = document.querySelector(
-    ".cashflow-type button.selected"
-  ).innerText;
-
-  addCashflowData(selectedType, amount, note);
-
-  document.getElementById("cashflow-amount").value = "";
-  document.getElementById("cashflow-note").value = "";
-});
-
-const cashflowButtons = document.querySelectorAll(".cashflow-type button");
-cashflowButtons.forEach((button) => {
-  button.addEventListener("click", function () {
-    cashflowButtons.forEach((btn) => btn.classList.remove("selected"));
-    button.classList.add("selected");
-  });
-});
 
 // Load Calendar
 function loadCalendar() {
-  const dt = new Date();
+    const dt = new Date();
 
-  if (monthChanger !== 0) {
-    dt.setMonth(new Date().getMonth() + monthChanger);
-  }
-
-  // Today
-  const day = dt.getDate();
-  const month = dt.getMonth();
-  const year = dt.getFullYear();
-
-  //Firstday and Num days of month
-  const firstDayofMonth = new Date(year, month, 1);
-  const numDaysInMonth = new Date(year, month + 1, 0).getDate();
-
-  const dateString = firstDayofMonth.toLocaleDateString("en-us", {
-    weekday: "long",
-    year: "numeric",
-    month: "numeric",
-    day: "numeric",
-  });
-
-  document.getElementById("monthDisplay").innerText = `${dt.toLocaleDateString(
-    "en-us",
-    { month: "long" }
-  )} ${year}`;
-
-  // Days before start
-  const paddingDays = weekDays.indexOf(dateString.split(", ")[0]);
-
-  // Clear before load
-  calendar.innerHTML = "";
-
-  for (let i = 1; i <= paddingDays + numDaysInMonth; i++) {
-    const daySquare = document.createElement("div");
-    daySquare.classList.add("day");
-
-    if (i > paddingDays) {
-      daySquare.innerText = i - paddingDays;
-
-      if (i - paddingDays === day && monthChanger === 0) {
-        daySquare.style.backgroundColor = "rgba(204,255,153, 0.5)";
-      }
-
-      daySquare.addEventListener("click", () =>
-        openDate(`${month + 1}/${i - paddingDays}/${year}`)
-      );
-    } else {
-      daySquare.classList.add("padding");
+    if (monthChanger !== 0) {
+        dt.setMonth(new Date().getMonth() + monthChanger);
     }
 
-    calendar.appendChild(daySquare);
-  }
+    // Today
+    const day = dt.getDate();
+    const month = dt.getMonth();
+    const year = dt.getFullYear();
+
+    //Firstday and Num days of month
+    const firstDayofMonth = new Date(year, month, 1);
+    let varday = firstDayofMonth;
+    const numDaysInMonth = new Date(year, month + 1, 0).getDate();
+
+    const dateString = firstDayofMonth.toLocaleDateString("en-us", {
+        weekday: "long",
+        year: "numeric",
+        month: "numeric",
+        day: "numeric",
+    });
+
+    document.getElementById("monthDisplay").innerText = `${dt
+        .toLocaleDateString("en-us", {
+            month: "long",
+        })
+        .slice(0, 3)}, ${year}`;
+
+    // Days before start
+    const paddingDays = weekDays.indexOf(dateString.split(", ")[0]);
+
+    // Clear before load
+    calendar.innerHTML = "";
+
+    for (let i = 1; i <= paddingDays + numDaysInMonth; i++) {
+        const daySquare = document.createElement("div");
+        daySquare.classList.add("day");
+
+        if (i > paddingDays) {
+            daySquare.setAttribute(
+                "strdate",
+                varday.toDateString().slice(4, 10)
+            );
+            varday.setDate(varday.getDate() + 1);
+            daySquare.innerText = i - paddingDays;
+
+            if (i - paddingDays === day && monthChanger === 0) {
+                daySquare.style.backgroundColor = "rgba(204,255,153, 0.5)";
+            }
+
+            daySquare.addEventListener("click", () => {
+                //For date
+                document.getElementById("dateOfDiv").innerText =
+                    daySquare.getAttribute("strdate");
+
+                showPopUp();
+            });
+        } else {
+            daySquare.classList.add("padding");
+        }
+
+        calendar.appendChild(daySquare);
+    }
 }
 
 // Month Changer
 function changeMonth() {
-  document.getElementById("nextMonth").addEventListener("click", () => {
-    monthChanger++;
-    loadCalendar();
-  });
+    document.getElementById("nextMonth").addEventListener("click", () => {
+        monthChanger++;
+        loadCalendar();
+    });
 
-  document.getElementById("prevMonth").addEventListener("click", () => {
-    monthChanger--;
-    loadCalendar();
-  });
+    document.getElementById("prevMonth").addEventListener("click", () => {
+        monthChanger--;
+        loadCalendar();
+    });
 
-  document.getElementById("currMonth").addEventListener("click", () => {
-    monthChanger = 0;
-    loadCalendar();
-  });
+    document.getElementById("currMonth").addEventListener("click", () => {
+        monthChanger = 0;
+        loadCalendar();
+    });
+
+    popupBackground.addEventListener("click", closePopUp);
+    PopUpX.addEventListener("click", closePopUp);
 }
 
 // Function Calls

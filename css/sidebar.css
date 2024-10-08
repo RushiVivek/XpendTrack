@@ -1,9 +1,164 @@
-.side-bar{
+/* navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #1e1e2f;
+  padding: 1rem;
+  color: white;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   position: fixed;
-  height: 100%;
-  width: 200px;
-  top: 60px;
-  /* background-color: #1a1a1a; */
+  width: 100%;
+  top: 0;
+  z-index: 100000;
+ }
+ 
+ .nav-left {
+  display: flex;
+  align-items: center;
+ }
+ 
+ .nav-left .icon-button {
+  font-size: 24px;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  margin-right: 10px;
+ }
+ 
+ .nav-left .logo {
+  height: 40px; 
+ }
+ 
+ .nav-right {
+  position: relative;
+ }
+ 
+ .profile-pic {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+ }
+ 
+ .profile-popup {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 50px;
   background-color: white;
-  z-index: -10000;
-}
+  color: #333;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  min-width: 150px;
+  font-size: 14px;
+ }
+ 
+ #username {
+  font-weight: 600;
+  margin-bottom: 10px;
+  font-size: 16px;
+ }
+ 
+ .profile:hover .profile-popup {
+  display: block;
+ }
+
+ /* Sidebar */
+
+.sidebar {
+  width: min(42vw, 200px);
+  background-color: #252836;
+  color: white;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  z-index: 10000;
+  height: 100%;
+  transform: translateX(-250px);
+  transition: transform 0.3s ease;
+ }
+ 
+ .sidebar-items{
+  margin-top: 40px;
+ }
+ 
+ .sidebar ul {
+  list-style: none;
+  padding: 20px;
+ }
+ 
+ .sidebar ul li {
+  margin: 20px 0;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: color 0.3s ease;
+ }
+ 
+ .sidebar ul li:hover {
+  color: #00e0b0;
+ }
+
+
+ @media (max-width: 768px) {
+  .navbar {
+      padding: 0.5rem;
+  }
+ 
+  .nav-left .logo {
+      height: 30px;
+  }
+ 
+  .profile-pic {
+      width: 30px;
+      height: 30px;
+  }
+ 
+  .sidebar {
+      transform: translateX(-100%);
+  }
+ 
+  .sidebar-logo {
+      display: block;
+  }
+ 
+  .sidebar ul li {
+      font-size: 1rem;
+  }
+ 
+  .content {
+      margin-left: 0;
+      padding: 10px;
+  }
+ }
+ 
+ @media (min-width: 769px) {
+  .navbar .icon-button {
+      display: none;
+  }
+ 
+  .sidebar {
+      transform: translateX(0);
+  }
+ 
+  .sidebar-logo {
+      display: none;
+  }
+ 
+  .content{
+   margin-left: 230px;
+  }
+ }
+ 
+ .sidebar.open {
+  transform: translateX(0);
+ }
+ 
+ html, body {
+  transition: background-color 0.3s ease;
+ }
+ 
+ 

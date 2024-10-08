@@ -1,96 +1,121 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link rel="stylesheet" href="CSS/navbar.css">
-    <link rel="stylesheet" href="CSS/sidebar.css">
-    <link rel="stylesheet" href="CSS/index.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XpendTrack</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/sidebar.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/calendar.css">
+    <link rel="stylesheet" href="css/popup.css">
+    
 </head>
-
 <body>
+    <!-- Navbar -->
     <nav class="navbar">
-        <div class="logo">XpendTrack</div>
-        <ul class="nav-links">
-        </ul>
-        <div class="profile-icon" onclick="toggleDropdown()">
-            &#9818;
+        <div class="nav-left">
+            <button class="icon-button" id="menu-toggle">&#9776;</button>
+            <img src="_images/xpensetrack-logo.png" alt="XpendTrack Logo" class="logo">
         </div>
-        <div id="dropdown" class="dropdown-content">
-            <p>Email: user@example.com</p>
-            <button class="logout-btn">Logout</button>
+
+        <div class="nav-right">
+            <div class="profile" id="profile-menu">
+                <img src="_images/default-user.png" alt="Profile Picture" class="profile-pic">
+                <div class="profile-popup" id="profile-popup">
+                    <p id="login-email">RohitSharma@bsa.com</p> 
+                    <button id="signout-button">Sign Out</button>
+                </div>
+            </div>
         </div>
     </nav>
 
     <!-- Sidebar -->
-    <div class="side-bar" id="sidebar">
-        <ul>
-            <li><a href="#summary">Summary</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#trip">For Trip Section</a></li>
-            <li><img src="_images/xpendtrack.jpg" alt="XpendTrack" width="50"></li>
+    <div class="sidebar" id="sidebar">
+        <ul class="sidebar-items">
+            <li>Transactions</li>
+            <li>Summary</li>
+            <li>Event Planning</li>
+            <li>About</li>
         </ul>
     </div>
 
-    <script>
-        // Toggle dropdown
-        function toggleDropdown() {
-            var dropdown = document.getElementById("dropdown");
-            dropdown.classList.toggle("show");
-        }
-
-        // Close dropdown when clicking outside
-        window.onclick = function (event) {
-            if (!event.target.matches('.profile-icon')) {
-                var dropdown = document.getElementById("dropdown");
-                if (dropdown.classList.contains('show')) {
-                    dropdown.classList.remove('show');
-                }
-            }
-        }
-
-        // Toggle the sidebar on small screens
-        function toggleSidebar() {
-            var sidebar = document.getElementById("sidebar");
-            sidebar.classList.toggle("open");
-        }
-    </script>
-
-    <!-- Balance && Expenditure -->
-    <div class="bal-exp">
-        <div id="balance">
-            <div class="bal-exp-head"><p>Balance</p></div>
-            <div class="amount"><p>100000</p></div>
-        </div>
-        <div id="expenditure">
-            <div class="bal-exp-head"><p>Expenses</p></div>
-            <div class="amount"><p>100000</p></div>
-        </div>
+    
+    <div class="content" id="main-content">
+        <div id="container">
+            <div id="header">
+             <div id="monthDisplay"></div>
+             <div class="month-btns">
+              <button id="prevMonth">Prev</button>
+              <button id="currMonth">Current</button>
+              <button id="nextMonth">Next</button>
+             </div>
+            </div>
+          
+            <div id="weekdays">
+             <div>Sun</div>
+             <div>Mon</div>
+             <div>Tue</div>
+             <div>Wed</div>
+             <div>Thu</div>
+             <div>Fri</div>
+             <div>Sat</div>
+            </div>
+          
+            <div id="calendar"></div>
+           </div>
+          
+          
+           <!-- Popup-->
+            <div id = "popup-remover"></div>
+            <div id="popup-inputs" class="popup-container">
+            <div id = "popupHead">
+              <h2 id="dateOfDiv" style="margin: 10px 0px 5px 0px;">DATE</h2>
+              <ion-icon name="close-circle" style="font-size: 30px;" id="closeBtn"></ion-icon>
+            </div>
+            <h3 style="margin: 5px 0px; color: gray;">Select type of CashFlow:</h3>
+            <div class="cashflow-type">
+              <button id="incomeBtn">Income<span class="cf-btn"></span></button>
+              <button id="expenseBtn">Expense<span class="cf-btn"></span></button>
+              <button id="transferBtn">Transfer<span class="cf-btn"></span></button>
+            </div>
+          
+            <div class="category-drop-down">
+              <label for="category">Category:</label>
+              <select id="categoryDropdown" >
+              </select>
+            </div>
+          
+            
+            <!-- Amount-->
+            <div class="note">
+              <label for="amount">Amount:</label>
+              <input type="number" id="cashflow-amount" placeholder="Enter Amount">
+            </div>
+            
+            <!-- AddBtn -->
+            <div class="addBtn">
+              <button id="saveButton">Add</button>
+            </div>
+          
+            <!-- Details-->
+            <div id="addedData" class="cashflow-data"></div>
+          
+            <div class="summary">
+              <div><p>CashFlow(Rs.): </p></div>
+              <div id="cashFlow-color"><p id="netIncome">0</p></div>
+            </div>
+          </div>
+          
     </div>
 
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <script type "module" src="js/index.js"></script>
-    <script type="module" src="js/firebase.js"></script>
+    <script type ="module" src="js/index.js"></script>
+    <script src="js/calendar.js"></script>
+    <script src="js/popup.js"></script>
+    <script type ="module" src="js/firebase.js"></script>
 </body>
-
 </html>

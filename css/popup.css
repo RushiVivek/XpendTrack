@@ -1,0 +1,181 @@
+#popup-remover {
+  display: none;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100vw;
+  height: 100vh;
+  z-index: 10;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+
+.popup-container {
+ z-index: 1000;
+ top: 100px; 
+ position: absolute;
+ display: none;
+ flex-direction: column;
+ justify-content: space-between;
+ width: 80%;
+ max-width: 400px;
+ background-color: white;
+ padding: 20px;
+ border-radius: 8px;
+ box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+ margin: 0px;
+ height: 550px;
+}
+
+/* Head */
+#popupHead{
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+}
+
+#closeBtn:hover{
+ color: gray;
+}
+
+/* Cashflow btns */
+.cashflow-type {
+ display: flex;
+ justify-content: space-between;
+ margin-bottom: 20px;
+}
+
+.cashflow-type button {
+ padding: 8px 15px;
+ color: white;
+ border: none;
+ border-radius: 5px;
+ cursor: pointer;
+}
+
+.cashflow-type button:nth-child(1) {
+ background-color: #4caf50;
+}
+
+.cashflow-type button:nth-child(2) {
+ background-color: #f44336;
+}
+
+.cashflow-type button:nth-child(3) {
+ background-color: #ff9800;
+}
+
+.cashflow-type #incomeBtn:hover{
+ background-color: white;
+ border: 1px solid #4caf50;
+ color: #4caf50;
+}
+
+.cashflow-type #expenseBtn:hover{
+ background-color: white;
+ border: 1px solid #f44336;
+ color: #f44336;
+}
+
+.cashflow-type #transferBtn:hover{
+ background-color: white;
+ border: 1px solide #ff9800;
+ color: #ff9800;
+}
+
+/* Dropdown & Input box */
+.category-drop-down, .note {
+ margin-bottom: 15px;
+ font-family: 'Poppins', Arial, sans-serif;
+}
+
+.category-drop-down label, .note label {
+ display: block;
+ margin-bottom: 5px;
+}
+
+select, input {
+ width: 100%;
+ padding: 8px;
+ border: 1px solid #ccc;
+ border-radius: 5px;
+}
+
+/* Cashflow entry data */
+.cashflow-data {
+ max-height: 200px;
+ overflow-y: auto;
+ margin-top: 10px;
+ padding: 5px;
+ border-radius: 5px;
+ flex-grow: 1;
+}
+
+/* cashflow entries */
+.cashflow-entry {
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+ padding: 8px;
+ margin: 5px 0;
+ background-color: #f9f9f9;
+ box-shadow: 0px 0px 2px lightgray;
+}
+
+.cashflow-entry.income { border-left: 4px solid #4caf50;}
+.cashflow-entry.expense { border-left: 4px solid #f44336;}
+.cashflow-entry.transfer { border-left: 4px solid #ff9800;}
+
+.cashflow-entry .cashflow-type {
+ font-weight: bold;
+}
+
+.cashflow-entry .cashflow-amount {
+ margin-left: auto;
+}
+
+/* Input box styles */
+.note input {
+ width: 100%;
+ padding: 10px;
+ margin: 5px 0;
+ box-shadow: 0px 0px 3px gray;
+ border: 1px solid #ccc;
+ border-radius: 5px;
+ font-family: 'Poppins', Arial, sans-serif;
+ box-sizing: border-box;
+}
+
+/* Add button*/
+.addBtn{
+ display: flex;
+ justify-content: end;
+}
+#saveButton {
+ background-color: #15b089;
+ color: white;
+ padding: 10px 20px;
+ border-radius: 5px;
+ font-weight: bold;
+ cursor: pointer;
+}
+
+#saveButton:hover{
+ border: 1px solid #15b089;
+ color: #15b089;
+ background-color: white;
+}
+
+/* Summary*/
+.summary {
+ display: flex;
+ justify-content: space-between;
+ margin-top: 20px;
+ font-weight: bold;
+ border-top: 1px solid #ccc;
+ 
+}
+.summary div {
+ width: 100%;
+ text-align: center;
+}
