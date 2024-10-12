@@ -34,63 +34,63 @@
             </div>
 
             <!-- Login Form -->
-            <form id = "signup-form">
             <div class="login-container">
-                <div class="login-head">
-                    <h4 class="login-heading">SignUp</h4>
-                </div>
-                <div class="login-details">
-                    <div class="login-info">
-                        <input type="email" placeholder="Email"  id = "email-inp"/>
+                <form id = "signup-form">
+                    <div class="login-head">
+                        <h4 class="login-heading">SignUp</h4>
                     </div>
-                    <div class="login-info">
-                        <input
-                            type="password"
-                            placeholder="Password"
-                            class="pwd"
-                            id="password-inp"
-                        />
+                    <div class="login-details">
+                        <div class="login-info">
+                            <input type="email" placeholder="Email"  id = "email-inp"/>
+                        </div>
+                        <div class="login-info">
+                            <input
+                                type="password"
+                                placeholder="Password"
+                                class="pwd"
+                                id="password-inp"
+                            />
+                        </div>
+                        <div class="login-info">
+                            <input
+                                type="password"
+                                placeholder="Confirm Password"
+                                class="pwd"
+                                id="confirm-password-inp"
+                            />
+                        </div>
                     </div>
-                    <div class="login-info">
-                        <input
-                            type="password"
-                            placeholder="Confirm Password"
-                            class="pwd"
-                            id="confirm-password-inp"
-                        />
+                    
+                    <!-- Show Password and Remember Me -->
+                    <div class="show-password">
+                        <div>
+                            <input
+                            type="checkbox"
+                            id="show-pwd-box"
+                            />
+                            <label for="show-pwd-box">Show password</label>
+                        </div>
                     </div>
-                </div>
-                
-                <!-- Show Password and Remember Me -->
-                <div class="show-password">
-                    <div>
-                        <input
-                        type="checkbox"
-                        id="show-pwd-box"
-                        />
-                        <label for="show-pwd-box">Show password</label>
+                    <div class="login-extra">
+                        <div class="login-remember">
+                            <input type="checkbox" id="remember" checked />
+                            <label for="remember">Remember me</label>
+                        </div>
+                        <a href="login.html" class="signup-link"
+                            >Already Registered?</a
+                        >
                     </div>
-                </div>
-                <div class="login-extra">
-                    <div class="login-remember">
-                        <input type="checkbox" id="remember" checked />
-                        <label for="remember">Remember me</label>
-                    </div>
-                    <a href="login.html" class="signup-link"
-                        >Already Registered?</a
-                    >
-                </div>
 
-                <!-- SignUp Button -->
-                <div class="login-btn">
-                    <button id="login-submit">Sign Up</button>
-                </div>
-            </form>
+                    <!-- SignUp Button -->
+                    <div class="login-btn">
+                        <button id="login-submit">Sign Up</button>
+                    </div>
+                </form>
                 <!-- Social Sign-In -->
                 <div class="social-acnt">
                     <p>or you can sign up with</p>
                     <div class="social-icns">
-                        <button class="social-icn">
+                        <button class="social-icn" id="google-signin">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 width="16"
@@ -118,7 +118,7 @@
                                 />
                             </svg>
                         </button>
-                        <button class="social-icn">
+                        <button class="social-icn" id="github-signin">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 width="16"

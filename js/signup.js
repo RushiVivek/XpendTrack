@@ -2,7 +2,6 @@ import {
     getAuth,
     createUserWithEmailAndPassword,
     GoogleAuthProvider,
-    FacebookAuthProvider,
     GithubAuthProvider,
     signInWithPopup,
     sendEmailVerification,
@@ -99,6 +98,22 @@ document.getElementById("signup-form").addEventListener("submit", (e) => {
     }
 });
 
+document.getElementById("google-signin").addEventListener("click", () => {
+    let invalids = document.getElementsByClassName("alert-sys")[0];
+    invalids.style.display = "none";
+    setPersistence(auth, browserLocalPersistence).then(() => {
+        signInWithGoogle();
+    });
+});
+
+document.getElementById("github-signin").addEventListener("click", () => {
+    let invalids = document.getElementsByClassName("alert-sys")[0];
+    invalids.style.display = "none";
+    setPersistence(auth, browserLocalPersistence).then(() => {
+        signInWithGithub();
+    });
+});
+
 const auth = getAuth(app);
 
 function createUser(email, password, target = "index.html") {
@@ -115,39 +130,50 @@ function createUser(email, password, target = "index.html") {
         })
         .catch((error) => {
             console.error("Error creating user:", error);
+            if (error.code === "auth/email-already-in-use") {
+                let invalids = document.getElementsByClassName("alert-sys")[0];
+                let alert_msg = document.getElementById("alert");
+                alert_msg.textContent = "Email already in use!";
+                invalids.style.display = "flex";
+            } else if (error.code === "auth/weak-password") {
+                let invalids = document.getElementsByClassName("alert-sys")[0];
+                let alert_msg = document.getElementById("alert");
+                alert_msg.textContent = "Password is too weak!";
+                invalids.style.display = "flex";
+            } else if (error.code === "auth/invalid-email") {
+                let invalids = document.getElementsByClassName("alert-sys")[0];
+                let alert_msg = document.getElementById("alert");
+                alert_msg.textContent = "Invalid Email!";
+                invalids.style.display = "flex";
+            } else {
+                let invalids = document.getElementsByClassName("alert-sys")[0];
+                let alert_msg = document.getElementById("alert");
+                alert_msg.textContent = "Error creating user!";
+                invalids.style.display = "flex";
+            }
         });
 }
 
-function signInWithGoogle() {
+function signInWithGoogle(target = "index.html") {
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider)
         .then((result) => {
             const user = result.user;
             console.log("Signed in as", user.displayName);
+            window.location.replace(target);
         })
         .catch((error) => {
             console.error("Error signing in with Google:", error);
         });
 }
 
-function signInWithFacebook() {
-    const provider = new FacebookAuthProvider();
-    signInWithPopup(auth, provider)
-        .then((result) => {
-            const user = result.user;
-            console.log("Signed in as", user.displayName);
-        })
-        .catch((error) => {
-            console.error("Error signing in with Facebook:", error);
-        });
-}
-
-function signInWithGithub() {
+function signInWithGithub(target = "index.html") {
     const provider = new GithubAuthProvider();
     signInWithPopup(auth, provider)
         .then((result) => {
             const user = result.user;
             console.log("Signed in as", user.displayName);
+            window.location.replace(target);
         })
         .catch((error) => {
             console.error("Error signing in with Github:", error);

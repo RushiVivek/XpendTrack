@@ -10,7 +10,33 @@ const auth = getAuth(app);
 onAuthStateChanged(auth, (user) => {
     if (user) {
         console.log("User is signed in:", user.email);
-        console.log("firebase persistance?", auth);
+        if (user.emailVerified) {
+            console.log("User is verified:", user.email);
+            document.getElementById("login-email").innerText = user.email;
+        } else {
+            // document.body.innerHTML = `
+            // <h1>Email not verified</h1>
+            // <p>
+            //     Please verify your email to continue using our services.
+            // </p>
+            // <p>
+            //     Please refresh the page after verifying your email.
+            // </p>
+            // <div id="message" style="display: hidden">Verification email sent.</div>
+            // <button id="verify-email">Send verification email</button>
+            // `;
+            // const verifyEmail = document.getElementById("verify-email");
+            // verifyEmail.addEventListener("click", () => {
+            //     sendVerificationEmail();
+            //     document.getElementById("message").style.display = "block";
+            // });
+            // setInterval(() => {
+            //     auth.currentUser.reload().then(() => {
+            //         if (auth.currentUser.emailVerified)
+            //             window.location.reload();
+            //     });
+            // }, 2000);
+        }
     } else {
         window.location.replace("login.html");
     }
@@ -25,16 +51,6 @@ function sendVerificationEmail() {
         .catch((error) => {
             console.error("Error sending verification email:", error);
         });
-}
-
-function isEmailVerified() {
-    const user = auth.currentUser;
-    if (user) {
-        return user.emailVerified;
-    } else {
-        console.error("No user is signed in.");
-        return false;
-    }
 }
 
 // For side bars

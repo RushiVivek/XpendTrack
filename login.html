@@ -34,62 +34,62 @@
             </div>
 
             <!-- Login Form -->
-            <form id="login-form">
             <div class="login-container">
-                <div class="login-head">
-                    <h4 class="login-heading">LogIn</h4>
-                </div>
-                <div class="login-details">
-                    <div class="login-info">
-                        <input
-                            type="email"
-                            placeholder="Email"
-                            id="email-inp"
-                        />
+                <form id="login-form">
+                    <div class="login-head">
+                        <h4 class="login-heading">LogIn</h4>
                     </div>
-                    <div class="login-info">
-                        <input
-                            type="password"
-                            placeholder="Password"
-                            class="pwd"
-                            id="password-inp"
-                        />
+                    <div class="login-details">
+                        <div class="login-info">
+                            <input
+                                type="email"
+                                placeholder="Email"
+                                id="email-inp"
+                            />
+                        </div>
+                        <div class="login-info">
+                            <input
+                                type="password"
+                                placeholder="Password"
+                                class="pwd"
+                                id="password-inp"
+                            />
+                        </div>
                     </div>
-                </div>
 
-                <!-- Show Password -->
-                <div class="show-password">
-                    <div>
-                        <input
-                        type="checkbox"
-                        id="show-pwd-box"
-                        />
-                        <label for="show-pwd-box">Show password</label>
+                    <!-- Show Password -->
+                    <div class="show-password">
+                        <div>
+                            <input
+                            type="checkbox"
+                            id="show-pwd-box"
+                            />
+                            <label for="show-pwd-box">Show password</label>
+                        </div>
+                        <a href="login.html" class="forgot-pswd" id="forgot-pswd"
+                            >Forgot password</a
+                        >
                     </div>
-                    <a href="login.html" class="forgot-pswd"
-                        >Forgot password</a
-                    >
-                </div>
 
-                <!-- RMe -->
-                <div class="login-extra">
-                    <div class="login-remember">
-                        <input type="checkbox" id="remember" />
-                        <label for="remember">Remember me</label>
+                    <!-- RMe -->
+                    <div class="login-extra">
+                        <div class="login-remember">
+                            <input type="checkbox" id="remember" checked />
+                            <label for="remember">Remember me</label>
+                        </div>
+                        <a href="signin.html" class="signup-link">Register</a>
                     </div>
-                    <a href="signin.html" class="signup-link">Register</a>
-                </div>
 
-                <!-- Login Button -->
-                <div class="login-btn">
-                    <button id="login-submit">Log in</button>
-                </div>
+                    <!-- Login Button -->
+                    <div class="login-btn">
+                        <button id="login-submit" type="submit">Log in</button>
+                    </div>
                 </form>
                 <!-- Social Sign-In -->
                 <div class="social-acnt">
                     <p>or you can sign in with</p>
                     <div class="social-icns">
-                        <button class="social-icn">
+                        <button class="social-icn" id="google-signin">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 width="16"
@@ -117,7 +117,7 @@
                                 />
                             </svg>
                         </button>
-                        <button class="social-icn">
+                        <button class="social-icn" id="github-signin">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 width="16"
