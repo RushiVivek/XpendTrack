@@ -82,14 +82,15 @@ function loadCalendar() {
             if (i - paddingDays === day && monthChanger === 0) {
                 daySquare.style.backgroundColor = "rgba(204,255,153, 0.5)";
             }
-
-            daySquare.addEventListener("click", () => {
-                //For date
-                document.getElementById("dateOfDiv").innerText =
+            if (monthChanger === 0 || monthChanger === -1) {
+                daySquare.addEventListener("click", () => {
+                    //For date
+                    document.getElementById("dateOfDiv").innerText =
                     daySquare.getAttribute("strdate");
-
-                showPopUp();
-            });
+                    
+                    showPopUp();
+                });
+            }
         } else {
             daySquare.classList.add("padding");
         }

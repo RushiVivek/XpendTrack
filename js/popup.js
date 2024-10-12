@@ -142,6 +142,7 @@ function appendTransactionToUI({ id, category, amount }) {
         </span>
     `;
 
+    transaction.innerHTML = "";
     transaction.appendChild(dataEntry);
 
     dataEntry.querySelector(".deleteData").addEventListener("click", () => {
